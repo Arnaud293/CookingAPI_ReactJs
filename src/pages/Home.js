@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import Card from '../components/Card';
-import Search from '../components/Search';
 import axios from 'axios';
 
 const Home = () => {
 
     const [mealsData, setMealsData] = useState([]);
+    const [searchingForMeal, setSearchingForMeal] = useState('');
 
-    const getMeals = async () => {
-        await axios.get('https://www.themealdb.com/api/json/v1/1/search.php?s=').then((res) => setMealsData(res.data.meals));
+    const getMeals = () => {
+        axios.get('https://www.themealdb.com/api/json/v1/1/search.php?s=' + searchingForMeal).then((res) => setMealsData(res.data.meals));
         
     }
 
     useEffect (() => {
         getMeals();
         console.log(mealsData)
-    }, [])
+    }, [searchingForMeal])
     
 
     return (
         <div>
             <h1>Cooking With React</h1>
-            <Search />
+            <input type="text" onChange={(e) => setSearchingForMeal(e.target.value)} />
             <div className="cards-container">
                {
                 mealsData.map((meal) => (
