@@ -14,7 +14,7 @@ const Home = () => {
 
     useEffect (() => {
         getMeals();
-        
+        console.log(mealsData)
     }, [])
     
 
